@@ -3,6 +3,13 @@ import requests
 import os
 from datetime import datetime
 
+def update_existing_csv(file_path, timestamp_value):
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path)
+        df['timestamp'] = timestamp_value
+        df.to_csv(file_path, index=False)
+        print(f"Updated {file_path} with new timestamp column.")
+
 def iterate_csv(file_path):
     # Lire le fichier CSV
     df = pd.read_csv(file_path)
@@ -43,4 +50,7 @@ def iterate_csv(file_path):
 
 if __name__ == "__main__":
     file_path = "chemin/vers/votre_fichier.csv"
+    timestamp_value = "2025-02-07 15:00:00"
+    update_existing_csv('response_ok.csv', timestamp_value)
+    update_existing_csv('response_ko.csv', timestamp_value)
     iterate_csv(file_path)
