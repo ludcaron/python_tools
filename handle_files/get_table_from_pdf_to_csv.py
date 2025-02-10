@@ -1,5 +1,6 @@
 import tabula
 import pandas as pd
+import os
 
 def extract_table_from_pdf(pdf_path, csv_path, page_number=1):
     # Extraire le tableau du PDF
@@ -12,6 +13,10 @@ def extract_table_from_pdf(pdf_path, csv_path, page_number=1):
         print(f"Tableau extrait et sauvegardé dans {csv_path}")
     else:
         print("Aucun tableau trouvé dans le PDF.")
+        # Créer un fichier CSV vide si aucun tableau n'est trouvé
+        if not os.path.exists(csv_path):
+            pd.DataFrame().to_csv(csv_path, index=False)
+            print(f"Fichier CSV vide créé à {csv_path}")
 
 if __name__ == "__main__":
     pdf_path = "chemin/vers/votre_fichier.pdf"
